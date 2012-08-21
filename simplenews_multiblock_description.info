@@ -1,0 +1,6 @@
+name = Simplenews Multi Signup Block Description
+description = Shows description of each list in multi signup block.
+dependencies[] = simplenews
+package = E-mail
+core = 7.x
+files[] = simplenews_multiblock_description.module

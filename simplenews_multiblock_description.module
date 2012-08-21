@@ -1,0 +1,29 @@
+<?php
+/**
+ * @file
+ * Úprava bloku pro přihlášení do více rozesílacích seznamů, aby obsahoval nejenom jména, ale i popisy seznamů.
+ */
+
+/*
+ * Implementation of hook_form_id_alter()
+ */
+
+// simplenews_subscriptions_multi_block_form - ID formuláře
+
+function simplenews_multiblock_description_form_simplenews_subscriptions_multi_block_form_alter(&$form, &$form_state, $form_id) {
+  // Modification for the form with the given form ID goes here. For example, if
+  // FORM_ID is "user_register_form" this code would run only on the user
+  // registration form.
+$my_options = array();
+$default_value = array();
+  // Add a checkbox to registration form about agreeing to terms of use.
+  foreach (simplenews_category_get_visible() as $my_newsletter) {
+    $my_options[$my_newsletter->tid] = '<b>' . check_plain($my_newsletter->name) . '</b><br/>' . check_plain($my_newsletter->description);
+}
+unset ($form['newsletters']);
+$form['newsletters'] = array(
+    '#type' => 'checkboxes',
+    '#options' => $my_options,
+    '#default_value' => $default_value,
+  );
+}
